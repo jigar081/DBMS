@@ -1,0 +1,65 @@
+
+create database INSURANCE_base;
+use INSURANCE_base;
+create table PERSON
+(
+driver_id varchar(30) primary key,
+fname varchar(40) NOT NULL,
+adress varchar(40) NOT NULL
+);
+ create table CAR
+ (
+ reg_num varchar(10) primary key,
+ model varchar(5)  not null,
+ year_main int
+ );
+ 
+create table ACCIDENT
+(
+ report_num int primary key,
+ accident_date date,
+ location varchar(20)
+ );
+ 
+create table OWNS
+(
+  driver_id varchar(30),
+  reg_num varchar(10),
+  primary key(driver_id,reg_num),
+  foreign key(driver_id)references person(driver_id),
+  foreign key(reg_num)references car(reg_num)
+);
+
+create table PARTICIPATED
+(
+  driver_id varchar(30),
+  reg_num varchar(10),
+  report_num int,
+  primary key(driver_id,reg_num,report_num),
+  damage_amount int,
+  foreign key (driver_id)references person(driver_id),
+foreign key(reg_num)references car(reg_num),
+foreign key(report_num)references accident(report_num)
+  
+  );
+   
+   insert  into PERSON
+   values("A01","richard","srinivas nagar"),("A02","pradeep","rajaji nagar"),("A03","smith","ashok nagar"),("A04","venu","n r colony"),("A05","jhon","hanumanth nagar");
+   select *from PERSON; 
+insert into CAR
+values("KA052250","indic", 1990),("KA031181","lacer",1957),("KA031281","toyta",1998),("KA053408","honda",2008),("KA041702","audi",2005);
+ select *from CAR;
+ insert into ACCIDENT
+ values(11,'2003-01-01',"mysore road"),(12,'2004-02-21',"south circle"),
+ (13,'2003-01-21',"bull temple road"),(14,'2008-02-17',"mysore road"),
+ (15,'2005-04-02',"kanakpur road");
+ 
+insert into OWNS
+values("A01","KA052250"),("A02","KA031181"),("A03","KA031281"),("A04","KA053408"),("A05","KA041702");
+
+insert into PARTICIPATED
+values("A01","KA052250",11,10000),("A02","KA031181",12,50000),("A03","KA031281",13,25000),("A04","KA053408",14,3000),("A05","KA041702",15,5000);
+
+ select *from person;
+ select driver_id from PARTICIPATED where damage_amount>=2500;
+  
